@@ -1,0 +1,50 @@
+# An anaconda installation fro IVS based on Python3.7
+# Includes gcc and BLAS
+# 
+# Software version:
+#  - Anaconda3-2019.10
+#
+#
+# To pull this image from Singularity Library use
+#
+#  singularity pull library://ivs/default/anaconda
+#
+# This will download the file as anaconda_latest.sif
+#
+BootStrap: docker
+From: debian:buster-slim
+
+%post
+  # the Anaconda version to install
+  export ANACONDA=Anaconda3-2019.10-Linux-x86_64
+   
+  # install packages needed for the configuration
+  apt update
+  
+  # install software packages
+  apt install -y --no-install-recommends \
+      build-essential                    \
+      git                                \
+      wget                               \
+      libblas-dev                        \
+      ca-certificates
+        
+        
+  # install anaconda
+  wget https://repo.anaconda.com/archive/$ANACONDA.sh
+  chmod u+x $ANACONDA.sh
+  ./$ANACONDA.sh -b -p /opt/anaconda 
+  rm $ANACONDA.sh
+
+  # set the PATH
+  export PATH=/opt/anaconda/bin:$PATH
+  echo 'export PATH=/opt/anaconda/bin:$PATH' >>$SINGULARITY_ENVIRONMENT
+  
+  /opt/anaconda/bin/pip install --ignore-installed --upgrade tensorflow
+  /opt/anaconda/bin/pip install --upgrade tensorflow_probability
+  /opt/anaconda/bin/conda install pymc3
+  /opt/anaconda/bin/conda install mkl
+  /opt/anaconda/bin/conda install mkl-service
+  /opt/anaconda/bin/conda install blas
+  
+  
