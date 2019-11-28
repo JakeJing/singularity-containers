@@ -30,3 +30,8 @@ You can simply build a .sif file with the following command. It takes some time.
 
 > srun singularity exec -u singularity-r.sif Rscript test.R
 
+
+**TODO:**
+
+1. It is better to go to your own computer or instance and list all of the packages you need, and build an singularity image file.
+
