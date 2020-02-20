@@ -28,6 +28,8 @@ You can simply build a .sif file with the following command. It takes some time.
 
 ## 4. sharing and testing the image file
 
+> sbatch example.sh
+
 > srun singularity exec -u singularity-r.sif Rscript test.R
 
 

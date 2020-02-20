@@ -9,3 +9,6 @@ module load generic
 module load singularity
 srun singularity exec -u r_latest.sif Rscript test.R
 
+
+
+
