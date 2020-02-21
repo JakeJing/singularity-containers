@@ -42,6 +42,8 @@ From: debian:buster-slim
       gcc                                \
       build-essential                    \
       gfortran                           \
+	  libmagick++-dev                    \
+	  pandoc                             \
       libcurl4-openssl-dev               \
       libssl-dev                         \
       libxml2-dev                        \
@@ -56,7 +58,7 @@ From: debian:buster-slim
 
   # install R packages
   __pkginstall='
-  pkg <- c("tidyverse", "rstan", "brms");
+  pkg <- c("rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "Rcpp", "RcppArmadillo", "phytools", "geiger", "LaplacesDemon");
   install.packages(pkg, clean=TRUE, Ncpus=parallel::detectCores())
   '
   echo $__pkginstall | R --slave
