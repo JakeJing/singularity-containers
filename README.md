@@ -1,6 +1,6 @@
 # How to build a singularity-container
 
-This is a short intro to build a container via singularity in ubuntu.
+This is a short intro to build a container via singularity in ubuntu
 
 ## 1. install go, singularity and other dependencies
 
