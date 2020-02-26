@@ -10,4 +10,4 @@
 module load generic
 module load singularity
 
-srun singularity exec -u r_latest.sif Rscript R_cluster_example.R Rout/example_slurm${SLURM_ARRAY_TASK_ID}.Rout
+srun singularity exec -u sandbox/singularity-r Rscript R_cluster_example.R Rout/example_slurm${SLURM_ARRAY_TASK_ID}.Rout

@@ -26,14 +26,16 @@ You can simply build a .sif file with the following command. It takes some time.
 
 > sudo singularity build singularity-r.sif singularity-r.def
 
-## 4. sharing and testing the image file
+## 4. build a sandbox
+
+It is necessary to build a sandbox from the .sif file, so that you can direcly load the data from the sandbox, rather than creating a lot of containers and use up of all of the temporary storage in the /tmp folder. With the sanbox, you can run the batch scriptby by specifying the path of sanbox, instead of using the .sif file.
+
+> singularity build --sandbox singularity-r singularity-r.sif
+
+## 5. sharing and testing the image file
 
 > sbatch example.sh
 
-> srun singularity exec -u singularity-r.sif Rscript test.R
+> srun singularity exec -u singularity-r Rscript test.R
 
-
-**TODO:**
-
-1. It is better to go to your own computer or instance and list all of the packages you need, and build an singularity image file.
 
