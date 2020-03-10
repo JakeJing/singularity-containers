@@ -28,7 +28,7 @@ You can simply build a .sif file with the following command. It takes some time.
 
 ## 4. build a sandbox
 
-It is necessary to build a sandbox from the .sif file, so that you can direcly load the data from the sandbox, rather than creating a lot of containers and use up of all of the temporary storage in the /tmp folder. With the sanbox, you can run the batch scriptby by specifying the path of sanbox, instead of using the .sif file.
+It is necessary to build a sandbox from the .sif file, so that you can direcly load the data from the sandbox, rather than creating a lot of containers and use up of all of the temporary storage in the /tmp folder. With the sanbox, you can run the batch scriptby by specifying the path of sanbox, instead of using the .sif file. Pls check the **example.sh** in the parallel-example to see how to run teh script via sandbox.
 
 > singularity build --sandbox singularity-r singularity-r.sif
 
