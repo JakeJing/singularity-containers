@@ -22,7 +22,7 @@ I directly fork the template .def files from Taras for building R and Python ima
 
 ## 3. build the .sif (singularity image file) that can be shared by different machines
 
-You can simply build a .sif file with the following command. It takes some time.
+You can simply build a .sif file with the following command. It takes some time. Note: the new **singularity-r.def** supports for the **devtools** in R.
 
 > sudo singularity build singularity-r.sif singularity-r.def
 
