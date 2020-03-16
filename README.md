@@ -38,4 +38,4 @@ It is necessary to build a sandbox from the .sif file, so that you can direcly l
 
 > srun singularity exec -u singularity-r Rscript test.R
 
-
+> srun singularity exec -u sandbox/singularity-r Rscript R_cluster_example.R  (preferred)
