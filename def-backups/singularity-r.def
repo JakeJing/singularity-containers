@@ -1,0 +1,34 @@
+BootStrap: docker
+From: debian:buster-slim
+
+%post
+  # the R version to install
+  export R_VERSION=3.6.2
+
+  # install packages needed for the configuration
+  apt-get update
+  apt install -y --no-install-recommends locales gnupg2 software-properties-common
+
+  # Configure default locale
+  echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+  locale-gen en_US.utf8
+  /usr/sbin/update-locale LANG=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
+
+  # Add the R repository
+  apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF'
+  add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian buster-cran35/'
+  apt update
+
+  # Install pkgs
+  apt-get install -y libopenblas-dev r-base r-base-core r-base-dev r-recommended jags r-cran-rjags libcurl4-openssl-dev libopenmpi-dev openmpi-bin openmpi-common openmpi-doc openssh-client openssh-server libssh-dev wget vim git nano cmake gfortran g++ curl wget libxml2-dev libssl-dev pandoc libmagick++-dev
+
+  # Install required R packages
+  R --slave -e 'install.packages(c("BiocManager")); BiocManager::install(c("devtools")); devtools::install_github("rasmusab/bayesian_first_aid")'
+  __pkginstall='
+	pkg <- c("R.utils", "rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "Rcpp", "RcppArmadillo", "phytools", "geiger", "LaplacesDemon");
+    install.packages(pkg, clean=TRUE, Ncpus=parallel::detectCores())
+  '
+  echo $__pkginstall | R --slave
+  rm -rf /tmp/Rtmp*

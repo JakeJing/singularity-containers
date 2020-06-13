@@ -22,9 +22,17 @@ I directly fork the template .def files from Taras for building R and Python ima
 
 ## 3. build the .sif (singularity image file) that can be shared by different machines
 
-You can simply build a .sif file with the following command. It takes some time. Note: the new **singularity-r.def** supports for the **devtools** in R.
+You can simply build a .sif file with the following command. It takes some time. Note: the new **singularity-r.def** supports for the **devtools** in R. 
 
 > sudo singularity build singularity-r.sif singularity-r.def
+
+
+
+**Note:** you need to edit the line inside the **singularity-r.def** file to decide which R version to install, such as R version 4.0.1.
+
+> ```
+> deb http://cloud.r-project.org/bin/linux/debian buster-cran40/
+> ```
 
 ## 4. build a sandbox
 
