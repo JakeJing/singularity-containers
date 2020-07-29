@@ -26,7 +26,13 @@ You can simply build a .sif file with the following command. It takes some time.
 
 > sudo singularity build singularity-r.sif singularity-r.def
 
+You can run the shell inside the singularity, and see whether the packages are successfully installed.
 
+```bash
+singularity shell singularity-r.sif # open singularity virtual env
+R
+>> library(ggplot2)
+```
 
 **Note:** you need to edit the line inside the **singularity-r.def** file to decide which R version to install, such as R version 4.0.1.
 
