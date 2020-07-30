@@ -2,7 +2,7 @@ BootStrap: docker
 From: bitnami/minideb:jessie
 
 %environment
-    # add local directory for precompile files 
+    # add local directory for precompile files
     export JULIA_DEPOT_PATH=$PWD/containerhome/.julia:/user/.julia
     export PATH=/opt/julia/bin:$PATH
     export HOME=/user
@@ -20,26 +20,26 @@ From: bitnami/minideb:jessie
     # minideb specific install script, shaves off about 20mb compared to apt-get
     install_packages curl tar gzip openssh-client git ca-certificates
 
-    curl -k https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_MAJOR/julia-$JULIA_MAJOR$JULIA_MINOR-linux-x86_64.tar.gz > julia.tar.gz 
-    mkdir /opt/julia 
-    tar xzf julia.tar.gz -C /opt/julia 
-    rm julia.tar.gz 
-    mv /opt/julia/$(cd /opt/julia; echo julia-*)/* opt/julia/ 
+    curl -k https://julialang-s3.julialang.org/bin/linux/x64/$JULIA_MAJOR/julia-$JULIA_MAJOR$JULIA_MINOR-linux-x86_64.tar.gz > julia.tar.gz
+    mkdir /opt/julia
+    tar xzf julia.tar.gz -C /opt/julia
+    rm julia.tar.gz
+    mv /opt/julia/$(cd /opt/julia; echo julia-*)/* opt/julia/
     rm -rf /opt/julia/$(cd /opt/julia; echo julia-*)
 
-    rm -rf /opt/julia/share/doc 
-    rm -rf /opt/julia/share/icons 
+    rm -rf /opt/julia/share/doc
+    rm -rf /opt/julia/share/icons
     rm -rf /opt/julia/share/appdata
     rm -rf /opt/julia/share/applications
-    rm -rf /opt/julia/share/man 
-    rm -rf /opt/julia/share/julia/test 
-    rm /opt/julia/LICENSE.md 
+    rm -rf /opt/julia/share/man
+    rm -rf /opt/julia/share/julia/test
+    rm /opt/julia/LICENSE.md
     rm -rf /opt/julia/etc
-    rm -rf /opt/julia/include 
+    rm -rf /opt/julia/include
 
     mkdir -p /user/.julia/environments/$JULIA_MAJOR
 
-	julia -e 'using Pkg; Pkg.add("Distances")'
+	julia -e 'using Pkg; Pkg.add(["Distances", "Plots"])'
 
     # julia -e 'using Pkg;  Pkg.instantiate();'
 
