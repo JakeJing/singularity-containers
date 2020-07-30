@@ -42,9 +42,6 @@ From: bitnami/minideb:jessie
 	julia -e 'using Pkg; Pkg.add(["Distances", "Plots"])'
 
     # julia -e 'using Pkg;  Pkg.instantiate();'
-
     # mkdir -p /opt/.julia/environments/v1.3/
-
     # julia -e 'using Pkg;  Pkg.status()'
-
     # chmod -R a+rX $JULIA_DEPOT_PATH

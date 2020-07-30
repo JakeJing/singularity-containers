@@ -14,11 +14,9 @@ check whether the singularity is installed successfully
 
 > singularity help
 
-
 ## 2. create a .def file that includes the necessary packages you want to install
 
 I directly fork the template .def files from Taras for building R and Python images, and you can edit the file according to your own need, say installing certain packages or modules. You can easily find some other templates online.
-
 
 ## 3. build the .sif (singularity image file) that can be shared by different machines
 
@@ -54,12 +52,35 @@ It is necessary to build a sandbox from the .sif file, so that you can direcly l
 
 > srun singularity exec -u sandbox/singularity-r Rscript R_cluster_example.R  (preferred)
 
-# 6. install julia in Ubuntu
+## 6. julia in Ubuntu
+
+### (1) install julia in ubuntu
 
 There is also a bash script inside the repository, and you can download and run the script in the cluster. It will automatically install the julia for you.
 
 ```bash
 wget https://raw.githubusercontent.com/JakeJing/singularity-containers/master/install-julia-ubuntu.sh
 sudo bash install-julia-ubuntu.sh
+```
+
+### (2) create julia container and sandbox
+
+```bash
+sudo singularity build singularity-juliabase.sif singularity-juliabase.def
+singularity build --sandbox singularity-juliabase singularity-juliabase.sif
+```
+
+### (3) prepare the bash script and julia script
+
+Note that the **.def** file for julia container uses its own package path, and you need to export the package directory in the bash script (see details in `run-julia.sh`).
+
+```bash
+export JULIA_PKGDIR="sandbox/singularity-juliabase/user/.julia"
+```
+
+Moreover, to get the task id in julia script you can use `ENV["SLURM_ARRAY_TASK_ID"]` to get access to it (see **intro.jl**).
+
+```julia
+ID = parse(Int64, ENV["SLURM_ARRAY_TASK_ID"])
 ```
 
