@@ -10,8 +10,10 @@
 module load generic
 module load singularity
 
+# you can also use HPC or Hydra partitions, which are faster (see: https://www.zi.uzh.ch/en/teaching-and-research/science-it/infrastructure/sciencecluster/cpu-partitions.html)
+
 export JULIA_PKGDIR="sandbox/singularity-juliabase/user/.julia"
 
-srun singularity exec -u sandbox/singularity-juliabase julia intro.jl ${SLURM_ARRAY_TASK_ID} 
+srun singularity exec -u sandbox/singularity-juliabase julia intro.jl ${SLURM_ARRAY_TASK_ID}
 
 
