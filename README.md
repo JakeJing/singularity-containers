@@ -53,3 +53,13 @@ It is necessary to build a sandbox from the .sif file, so that you can direcly l
 > srun singularity exec -u singularity-r Rscript test.R
 
 > srun singularity exec -u sandbox/singularity-r Rscript R_cluster_example.R  (preferred)
+
+# 6. install julia in Ubuntu
+
+There is also a bash script inside the repository, and you can download and run the script in the cluster. It will automatically install the julia for you.
+
+```bash
+wget https://raw.githubusercontent.com/JakeJing/singularity-containers/master/install-julia-ubuntu.sh
+sudo bash install-julia-ubuntu.sh
+```
+
