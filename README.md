@@ -20,16 +20,21 @@ I directly fork the template .def files from Taras for building R and Python ima
 
 ## 3. build the .sif (singularity image file) that can be shared by different machines
 
-You can simply build a .sif file with the following command. It takes some time. Note: the new **singularity-r.def** supports for the **devtools** in R. 
+You can simply build a .sif file with the following command. It takes some time. Note: the new **singularity-rstan.def** supports for the **devtools** in R. 
 
-> sudo singularity build singularity-r.sif singularity-r.def
+> sudo singularity build singularity-rstan.sif singularity-rstan.def
 
 You can run the shell inside the singularity, and see whether the packages are successfully installed.
 
 ```bash
-singularity shell singularity-r.sif # open singularity virtual env
+singularity shell singularity-rstan.sif # open singularity virtual env
 R
 >> library(ggplot2)
+```
+Alternatively, you can run a R script via `singularity exec`. See the test example in the folder of R. 
+
+```bash
+singularity exec singularity-rstan.sif Rscript test.R
 ```
 
 **Note:** you need to edit the line inside the **singularity-r.def** file to decide which R version to install, such as R version 4.0.1.
@@ -42,15 +47,15 @@ R
 
 It is necessary to build a sandbox from the .sif file, so that you can direcly load the data from the sandbox, rather than creating a lot of containers and use up of all of the temporary storage in the /tmp folder. With the sanbox, you can run the batch scriptby by specifying the path of sanbox, instead of using the .sif file. Pls check the **example.sh** in the parallel-example to see how to run teh script via sandbox.
 
-> singularity build --sandbox singularity-r singularity-r.sif
+> singularity build --sandbox singularity-rstan singularity-rstan.sif
 
 ## 5. sharing and testing the image file
 
 > sbatch example.sh
 
-> srun singularity exec -u singularity-r Rscript test.R
+> srun singularity exec -u singularity-rstan Rscript test.R
 
-> srun singularity exec -u sandbox/singularity-r Rscript R_cluster_example.R  (preferred)
+> srun singularity exec -u sandbox/singularity-rstan Rscript R_cluster_example.R  (preferred)
 
 ## 6. julia in Ubuntu
 

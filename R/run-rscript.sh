@@ -12,4 +12,6 @@ module load singularity
 
 # you can also use HPC or Hydra partitions, which are faster (see: https://www.zi.uzh.ch/en/teaching-and-research/science-it/infrastructure/sciencecluster/cpu-partitions.html)
 
+# for details use bash command >> module avail
+
 srun singularity exec -u sandbox/singularity-r Rscript R_intro.R Rout/example_slurm${SLURM_ARRAY_TASK_ID}.Rout
