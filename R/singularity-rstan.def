@@ -7,8 +7,8 @@ From: debian:buster-slim
 
   # install packages needed for the configuration
   apt update
-  apt install -y --no-install-recommends locales gnupg2 software-properties-common 
-  # dirmngr gnupg2 software-properties-common 
+  apt install -y --no-install-recommends locales gnupg2 software-properties-common
+  # dirmngr gnupg2 software-properties-common
 
   # Configure default locale
   echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
@@ -21,7 +21,7 @@ From: debian:buster-slim
   apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7'
   add-apt-repository 'deb http://cloud.r-project.org/bin/linux/debian buster-cran40/'
   apt update
-    
+
   # install software packages
   apt-get install -y --no-install-recommends \
       gcc                                    \
@@ -40,18 +40,18 @@ From: debian:buster-slim
       libudunits2-dev                        \
       dirmngr                                \
       libv8-dev                              \
-      libnode-dev                            
+      libnode-dev
 
   apt-get install -y libopenblas-dev r-base-core r-base-dev r-recommended libcurl4-openssl-dev libopenmpi-dev openmpi-bin openmpi-common openmpi-doc openssh-client openssh-server libssh-dev wget cmake g++ python autoconf bzip2 libtool libtool-bin
-    
+
   # install R packages
   R --slave -e 'install.packages(c("BiocManager", "mnormt", "Matrix", "expm")); BiocManager::install(c("devtools")); devtools::install_github("liamrevell/phytools")'
   __pkginstall='
-	pkg <- c("R.utils", "rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "geiger", "rstan", "purrr");
+	pkg <- c("R.utils", "rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "geiger", "rstan", "purrr", "foreach", "parallel", "doParallel", "LaplacesDemon", "TreeSim");
     install.packages(pkg, clean=TRUE, Ncpus=parallel::detectCores())
   '
-  echo $__pkginstall | R --slave    
-      
+  echo $__pkginstall | R --slave
+
   # remove R tmp files
   rm -rf /tmp/Rtmp*
 
