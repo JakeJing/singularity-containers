@@ -27,7 +27,7 @@ From: debian:buster-slim
   # Install required R packages
   R --slave -e 'install.packages(c("BiocManager")); BiocManager::install(c("devtools")); devtools::install_github("rasmusab/bayesian_first_aid")'
   __pkginstall='
-	pkg <- c("R.utils", "rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "Rcpp", "RcppArmadillo", "phytools", "geiger", "LaplacesDemon");
+	pkg <- c("R.utils", "stats","rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "Rcpp", "RcppArmadillo", "phytools", "geiger", "LaplacesDemon");
     install.packages(pkg, clean=TRUE, Ncpus=parallel::detectCores())
   '
   echo $__pkginstall | R --slave
