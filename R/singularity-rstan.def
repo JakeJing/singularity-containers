@@ -40,18 +40,22 @@ From: debian:buster-slim
       libudunits2-dev                        \
       dirmngr                                \
       libv8-dev                              \
-      libnode-dev							\
-	  jags									\
+      libnode-dev		 					\
 	  pandoc								\
-	  libmagick++-dev
+	  libmagick++-dev						\
+	  texlive-latex-base					\
+	  texlive-fonts-recommended				\
+	  texlive-fonts-extra					\
+	  texlive-latex-extra
 
   apt-get install -y libopenblas-dev r-base-core r-base-dev r-recommended libcurl4-openssl-dev libopenmpi-dev openmpi-bin openmpi-common openmpi-doc openssh-client openssh-server libssh-dev wget cmake g++ python autoconf bzip2 libtool libtool-bin
 
   # install R packages
-  R --slave -e 'install.packages(c("BiocManager", "mnormt", "Matrix", "expm")); BiocManager::install(c("devtools")); devtools::install_github("liamrevell/phytools")'
+  R --slave -e 'install.packages(c("BiocManager", "mnormt", "Matrix", "expm")); BiocManager::install(c("devtools")); devtools::install_github("liamrevell/phytools"); BiocManager::install("ggtree")'
   __pkginstall='
-	pkg <- c("R.utils", "rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "geiger", "rstan", "purrr", "foreach", "parallel", "doParallel", "LaplacesDemon", "TreeSim");
-    install.packages(pkg, clean=TRUE, Ncpus=parallel::detectCores())
+	pkg <- c("R.utils", "rmarkdown", "ggplot2", "knitr", "dplyr", "magrittr", "tidyr", "plyr", "ape", "tibble", "geiger", "purrr", "foreach", "parallel", "doParallel", "extraDistr", "grid", "gridExtra", "posterior", "MASS");
+    install.packages(pkg, clean=TRUE, Ncpus=parallel::detectCores());
+	install.packages(c("StanHeaders","rstan"),type="source")
   '
   echo $__pkginstall | R --slave
 
