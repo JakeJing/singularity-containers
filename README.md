@@ -31,6 +31,14 @@ singularity shell singularity-rstan.sif # open singularity virtual env
 R
 >> library(ggplot2)
 ```
+You can still install some additional packages to the singularity container. The additional packages will also be added in the sandbox. For example,
+
+```R
+singularity shell singularity-rstan.sif # open singularity virtual env
+R
+>> install.packages("data.table")
+```
+
 Alternatively, you can run a R script via `singularity exec`. See the test example in the folder of R. 
 
 ```bash
