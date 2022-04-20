@@ -97,3 +97,24 @@ Moreover, to get the task id in julia script you can use `ENV["SLURM_ARRAY_TASK_
 ID = parse(Int64, ENV["SLURM_ARRAY_TASK_ID"])
 ```
 
+## Other useful commands for singularity
+
+(1) Inspect the definition file from a singularity container
+
+```bash
+singularity inspect --deffile singularity-rstan.sif
+```
+
+(2) bind or mount a folder to a singularity container (see also the [singularity doc](https://sylabs.io/guides/3.0/user-guide/bind_paths_and_mounts.html))
+
+```bash
+ls /data
+# bar  foo
+
+singularity exec --bind /data:/mnt my_container.sif ls /mnt
+# bar  foo
+
+# bind multiple directories
+singularity shell --bind /opt,/data:/mnt my_container.sif
+```
+
