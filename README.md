@@ -42,7 +42,7 @@ R
 Alternatively, you can run a R script via `singularity exec`. See the test example in the folder of R. 
 
 ```bash
-singularity exec singularity-rstan.sif Rscript test.R
+singularity exec singularity-rstan.sif Rscript test.R # (Not recommend, better first build sanbox)
 ```
 
 **Note:** you need to edit the line inside the **singularity-r.def** file to decide which R version to install, such as R version 4.0.1.
@@ -59,11 +59,15 @@ It is necessary to build a sandbox from the .sif file, so that you can direcly l
 
 ## 5. sharing and testing the image file
 
-> sbatch example.sh
+```bash
+sbatch example.sh
 
-> srun singularity exec -u singularity-rstan Rscript test.R
+srun singularity exec -u singularity-rstan Rscript test.R
 
-> srun singularity exec -u sandbox/singularity-rstan Rscript R_cluster_example.R  (preferred)
+srun singularity exec -u sandbox/singularity-rstan Rscript R_cluster_example.R  # (preferred)
+
+singularity exec /crex/proj/evolang2022/yingqi/sandbox/singularity-rstan Rscript -e "id=1; iters = 3000; thins = 5; nchains = 1; rmarkdown::render('script.Rmd', output_format = c('html_document'), output_file = paste('Rout/', 'out-1', '.html', sep=''))"
+```
 
 ## 6. julia in Ubuntu
 
