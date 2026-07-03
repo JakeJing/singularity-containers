@@ -6,6 +6,8 @@ This is a short intro to build a container via singularity in ubuntu
 
 There is a nice intro to show how to install singularity in ubuntu (https://sylabs.io/guides/3.5/user-guide/quick_start.html#quick-installation-steps).
 
+You can log in your own slabs dashboard (https://cloud.sylabs.io/dashboard) to create a singularity container using the `*.def` file in this repos.
+
 Here I provide the bash script to automatically download the install the singularity v3.5.
 
 > bash install-singularity.sh
