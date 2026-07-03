@@ -1,16 +1,45 @@
 Bootstrap: docker
-From: rocker/tidyverse
+From: rocker/r-ver:4.5.2
+
+%labels
+    Author your_name
+    R_Version 4.5.2
+    Base_OS Ubuntu (via rocker/r-ver)
 
 %post
-    # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
-    echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+    export DEBIAN_FRONTEND=noninteractive
 
-    Rscript -e 'install.packages(c("remotes", "devtools"))'
-    Rscript -e 'remotes::install_github("bmbolstad/preprocessCore")'
+    apt-get update && apt-get install -y --no-install-recommends \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libxml2-dev \
+        libfontconfig1-dev \
+        libharfbuzz-dev \
+        libfribidi-dev \
+        libfreetype6-dev \
+        libpng-dev \
+        libtiff5-dev \
+        libjpeg-dev \
+        libgit2-dev \
+        pandoc \
+        cmake \
+        gfortran \
+        build-essential \
+        && rm -rf /var/lib/apt/lists/*
+
+    # Core CRAN packages (grid and MASS ship with base R, but reinstalling MASS is harmless)
+    R -e "install.packages(c( \
+        'knitr','ggplot2','gridExtra','dplyr','readr','magrittr', \
+        'tidyr','tibble','ape','purrr','glue','stringr', \
+        'tidytree','posterior','MASS','bridgesampling','phytools' \
+      ), repos='https://cloud.r-project.org')"
+
+    # rstan (heavier build — StanHeaders compiles from source)
+    R -e "install.packages('rstan', repos = c('https://cloud.r-project.org'), dependencies = TRUE)"
+
+%environment
+    export LC_ALL=C
+    export PATH=/usr/local/bin:$PATH
 
 %runscript
-Rscript "$@"
-
-
-
-
+    exec R "$@"
