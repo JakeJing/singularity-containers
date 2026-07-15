@@ -6,15 +6,21 @@ This is a short intro to build a container via singularity in ubuntu
 
 There is a nice intro to show how to install singularity in ubuntu (https://sylabs.io/guides/3.5/user-guide/quick_start.html#quick-installation-steps).
 
-> sudo apt-get update && sudo apt-get install -y singularity-container
-
+```bash
+sudo apt-get update && sudo apt-get install -y singularity-container  
+```
 You can log in your own slabs dashboard (https://cloud.sylabs.io/dashboard) to create a singularity container using the `*.def` file in this repos.
 
-> singularity remote login
+```
+# login 
+singularity remote login
 
-> singularity search rstan
+# search for rstan
+singularity search rstan
 
-> singularity pull singularity-rstan.sif library://jakejing/collection/singularity-rstan:tag
+# pull repo
+singularity pull singularity-rstan.sif library://jakejing/collection/singularity-rstan:tag
+```
 
 Here I provide the bash script to automatically download the install the singularity v3.5.
 
