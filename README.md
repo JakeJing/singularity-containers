@@ -19,7 +19,7 @@ singularity remote login
 singularity search rstan
 
 # pull repo
-singularity pull singularity-rstan.sif library://jakejing/collection/singularity-rstan:tag
+singularity pull singularity-rstan.sif library://jakejing/collection/singularity-rstan:latest
 ```
 
 Here I provide the bash script to automatically download the install the singularity v3.5.
